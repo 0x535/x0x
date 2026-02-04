@@ -1,14 +1,14 @@
-/* ----------  CONFIG  ---------- */
-const PANEL_USER     = process.env.PANEL_USER  || 'admin';
-const PANEL_PASS     = process.env.PANEL_PASS  || 'changeme';
-const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
-
 /* ----------  DEPENDENCIES  ---------- */
 const express    = require('express');
 const bodyParser = require('body-parser');
 const cors       = require('cors');
-const crypto     = require('crypto');
+const crypto     = require('crypto');   // ← must come first
 const session    = require('cookie-session');
+
+/* ----------  CONFIG  ---------- */
+const PANEL_USER     = process.env.PANEL_USER  || 'admin';
+const PANEL_PASS     = process.env.PANEL_PASS  || 'changeme';
+const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -335,4 +335,5 @@ app.get('/api/success-log', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
   currentDomain = process.env.RAILWAY_STATIC_URL || process.env.RAILWAY_PUBLIC_DOMAIN || `http://localhost:${PORT}`;
+
 });
